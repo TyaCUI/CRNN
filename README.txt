@@ -27,6 +27,7 @@ runCRNN
 
 to run the code. Parameters for the model, as well as a debugging option, 
 can be found within initParams() along with their explanations.
+Note that params.isPretrained offers an option to show pretrained results if exists. The default is true. And params.debug offers an option to debug the code with a small sample. The default is false.
 
 The code also includes a copy of minFunc, a Matlab function for 
 unconstrained optimization, created by Mark Schmidt. 

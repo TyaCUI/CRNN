@@ -1,0 +1,1 @@
+[combineAcc rgbAcc depthAcc] = runCRNN()

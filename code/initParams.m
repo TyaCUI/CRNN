@@ -1,6 +1,6 @@
 function params = initParams()
 % use a small portion of dataset for debugging
-params.debug = 1;
+params.debug = 0;
 
 % Set the data folder here
 params.dataFolder = '../data/';
@@ -20,3 +20,5 @@ params.depth = false;
 % use extra features from segmentation mask
 params.extraFeatures = true;
 
+%show the pretrained results
+params.isPretrained=true;

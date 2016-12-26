@@ -5,32 +5,60 @@ disp(params);
 
 %% Run RGB
 disp('Forward propagating RGB data');
-parmas.depth = false;
+parmas.depth = true;
 
 % load and forward propagate RGB data
+if ~exist('results/rgbTrain_test.mat','file')||(~params.isPretrained)
 [rgbTrain rgbTest] = forwardProp(params);
+save('results/rgbTrain_test.mat','rgbTrain','rgbTest','-v7.3');
+else
+load('results/rgbTrain_test.mat')
+end
+
 
 % train softmax classifier
 disp('Training softmax...');
+if ~exist('results/rgbAcc.mat','file')||(~params.isPretrained)
 rgbAcc = trainSoftmax(rgbTrain, rgbTest, params);
-
+save('results/rgbAcc.mat','rgbAcc','-v7.3');
+else
+load('results/rgbAcc.mat')
+end
 %% Run Depth
 disp('Forward propagating depth data');
 params.depth = true;
 
 % load and forward propagate depth data
+if ~exist('results/depthTrain_test.mat','file')||(~params.isPretrained)
 [depthTrain depthTest] = forwardProp(params);
-
+save('results/depthTrain_test.mat','depthTrain','depthTest','-v7.3');
+else
+load('results/depthTrain_test.mat')
+end
 % train softmax classifier
+if ~exist('results/depthAcc.mat','file')||(~params.isPretrained)
 depthAcc = trainSoftmax(depthTrain, depthTest,params);
-
+save('results/depthAcc.mat','depthAcc','-v7.3');
+else
+load('results/depthAcc.mat')
+end
 %% Combine RGB + Depth
+if ~exist('results/cTrain_test.mat','file')||(~params.isPretrained)
 [cTrain cTest] = combineData(rgbTrain, rgbTest, depthTrain, depthTest);
+save('results/cTrain_test.mat','cTrain','cTest','-v7.3');
+else
+load('results/cTrain_test.mat')
+end
 clear rgbTrain rgbTest depthTrain depthTest;
 
 % test without extra features when combined
+if ~exist('results/cAcc.mat','file')||(~params.isPretrained)
 params.extraFeatures = false;
 combineAcc = trainSoftmax(cTrain, cTest, params);
+save('results/cAcc.mat','cAcc','-v7.3');
+else
+load('results/cAcc.mat')
+end
 return;
 
 function [train test] = forwardProp(params)
