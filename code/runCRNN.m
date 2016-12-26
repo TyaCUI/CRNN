@@ -55,7 +55,7 @@ clear rgbTrain rgbTest depthTrain depthTest;
 if ~exist('results/cAcc.mat','file')||(~params.isPretrained)
 params.extraFeatures = false;
 combineAcc = trainSoftmax(cTrain, cTest, params);
-save('results/cAcc.mat','cAcc','-v7.3');
+save('results/cAcc.mat','combineAcc','-v7.3');
 else
 load('results/cAcc.mat')
 end
